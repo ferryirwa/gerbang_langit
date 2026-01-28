@@ -1,0 +1,1981 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerbang Langit Indonesia</title>
+
+  <!-- Font & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* ===== RESET & BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #1e293b;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* ===== PRELOADER ===== */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .loader {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .loader div {
+      width: 16px;
+      height: 16px;
+      background-color: white;
+      border-radius: 50%;
+      animation: bounce 0.6s infinite alternate;
+    }
+    
+    .loader div:nth-child(2) { animation-delay: 0.2s; }
+    .loader div:nth-child(3) { animation-delay: 0.4s; }
+    
+    @keyframes bounce {
+      to { transform: translateY(-20px); }
+    }
+    
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 5%;
+      transition: all 0.3s ease;
+    }
+    
+    nav.scrolled {
+      padding: 10px 5%;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .logo h3 {
+      color: #1a237e;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    
+    .logo span {
+      color: #764ba2;
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+      align-items: center;
+    }
+    
+    nav ul li a {
+      text-decoration: none;
+      color: #4a5568;
+      font-weight: 600;
+      font-size: 15px;
+      transition: color 0.3s;
+      position: relative;
+    }
+    
+    nav ul li a:hover {
+      color: #1a237e;
+    }
+    
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      transition: width 0.3s;
+    }
+    
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+    
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #1a237e;
+    }
+    
+    .close-sidebar {
+      display: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #1a237e;
+    }
+    
+    /* ===== HEADER ===== */
+    header {
+      height: 100vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                  url("poto/1.jpg");
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 0 20px;
+      margin-top: 60px;
+    }
+    
+    .content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      font-weight: 800;
+      line-height: 1.2;
+      animation: fadeInUp 1s ease;
+    }
+    
+    .content p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      animation: fadeInUp 1s ease 0.2s both;
+    }
+    
+    .btn-main {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: fadeInUp 1s ease 0.4s both;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .btn-main:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+    
+    /* ===== SECTIONS ===== */
+    section {
+      padding: 80px 5%;
+      position: relative;
+    }
+    
+    section h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #1a237e;
+      margin-bottom: 20px;
+      position: relative;
+      font-weight: 800;
+    }
+    
+    section h2::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      margin: 15px auto 40px;
+      border-radius: 2px;
+    }
+    
+    .section-subtitle {
+      text-align: center;
+      color: #64748b;
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto 50px;
+    }
+    
+    /* ===== ABOUT ===== */
+    .about-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-top: 40px;
+    }
+    
+    .about-image img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      transition: transform 0.5s ease;
+    }
+    
+    .about-image img:hover {
+      transform: scale(1.02);
+    }
+    
+    .about-content h3 {
+      font-size: 2rem;
+      color: #1a237e;
+      margin-bottom: 20px;
+    }
+    
+    .about-content p {
+      color: #475569;
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+    
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .stat-item {
+      text-align: center;
+      padding: 25px 15px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s;
+    }
+    
+    .stat-item:hover {
+      transform: translateY(-10px);
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #1a237e;
+      margin-bottom: 10px;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .stat-label {
+      color: #64748b;
+      font-weight: 600;
+    }
+    
+    /* ===== FASILITAS ===== */
+    .fasilitas-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      list-style: none;
+      margin-top: 40px;
+    }
+    
+    .fasilitas-item {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    .fasilitas-item:hover {
+      transform: translateY(-10px);
+      border-color: #667eea;
+    }
+    
+    .fasilitas-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    
+    .fasilitas-item h4 {
+      font-size: 1.3rem;
+      color: #1a237e;
+      margin-bottom: 10px;
+    }
+    
+    .fasilitas-item p {
+      color: #64748b;
+      line-height: 1.6;
+    }
+    
+    /* ===== PAKET ===== */
+    .paket-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      margin-top: 40px;
+    }
+    
+    .paket-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .paket-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+    }
+    
+    .paket-card-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 700;
+      z-index: 1;
+    }
+    
+    .paket-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+    }
+    
+    .info {
+      padding: 25px;
+    }
+    
+    .info h3 {
+      font-size: 1.5rem;
+      color: #1a237e;
+      margin-bottom: 10px;
+    }
+    
+    .info p {
+      color: #64748b;
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+    }
+    
+    .price {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #1a237e;
+      margin: 20px 0;
+    }
+    
+    .paket-card button {
+      width: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .paket-card button:hover {
+      background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    }
+    
+    /* ===== TESTIMONI ===== */
+    .testimonial-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .testi-slider {
+      width: 100%;
+      overflow: hidden;
+    }
+    
+    .testi-track {
+      display: flex;
+      gap: 30px;
+      animation: slide 30s linear infinite;
+    }
+    
+    @keyframes slide {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
+    .testi-track:hover {
+      animation-play-state: paused;
+    }
+    
+    .testi-card {
+      flex: 0 0 350px;
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+    
+    .testi-card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      border: 4px solid #e2e8f0;
+    }
+    
+    .testi-content h4 {
+      color: #1a237e;
+      margin-bottom: 10px;
+    }
+    
+    .testi-content p {
+      color: #475569;
+      font-style: italic;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    
+    .testi-rating {
+      color: #fbbf24;
+      font-size: 20px;
+    }
+    
+    /* ===== MAPS ===== */
+    .map-container {
+      max-width: 1200px;
+      margin: 40px auto 0;
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    }
+    
+    .map-header {
+      padding: 30px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    
+    .map-header h3 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    
+    .map-header p {
+      opacity: 0.9;
+    }
+    
+    .map-box {
+      height: 500px;
+    }
+    
+    /* ===== FOOTER ===== */
+    .footer-premium {
+      background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+      color: white;
+      padding: 80px 5% 30px;
+      margin-top: 80px;
+    }
+    
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+    
+    .footer-col h4 {
+      font-size: 1.5rem;
+      margin-bottom: 25px;
+      position: relative;
+      padding-bottom: 15px;
+    }
+    
+    .footer-col h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: #64b5f6;
+    }
+    
+    .footer-col p {
+      opacity: 0.9;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    
+    .footer-social {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+    }
+    
+    .footer-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: white;
+      font-size: 18px;
+      transition: all 0.3s;
+    }
+    
+    .footer-social a:hover {
+      background: #64b5f6;
+      transform: translateY(-3px);
+    }
+    
+    .footer-links ul {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 15px;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .footer-links a:hover {
+      color: #64b5f6;
+      transform: translateX(5px);
+    }
+    
+    .footer-contact p {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .footer-contact i {
+      width: 20px;
+      color: #64b5f6;
+    }
+    
+    .footer-admin {
+      text-align: center;
+      margin: 40px 0;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+    }
+    
+    .admin-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+      color: #1a237e;
+      padding: 15px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+    
+    .admin-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(67, 233, 123, 0.4);
+    }
+    
+    .footer-copy {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      opacity: 0.8;
+      font-size: 14px;
+    }
+    
+    /* ===== POPUPS ===== */
+    .popup-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 20px;
+    }
+    
+    .popup-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      max-width: 500px;
+      width: 100%;
+      animation: popupIn 0.3s ease;
+    }
+    
+    .popup-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 25px;
+      text-align: center;
+    }
+    
+    .popup-header h3 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    
+    .popup-body {
+      padding: 30px;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #1a237e;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 14px 20px;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+    
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .order-detail {
+      background: #f8fafc;
+      padding: 20px;
+      border-radius: 12px;
+      margin: 25px 0;
+      border-left: 4px solid #667eea;
+    }
+    
+    .order-detail strong {
+      color: #1a237e;
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    .price-detail {
+      color: #1a237e;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+    
+    .popup-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    
+    .btn-submit-booking {
+      flex: 1;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .btn-submit-booking:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+    
+    .btn-close {
+      flex: 1;
+      background: #e2e8f0;
+      color: #64748b;
+      border: none;
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .btn-close:hover {
+      background: #cbd5e1;
+    }
+    
+    /* ===== GALLERY ===== */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      height: 200px;
+      cursor: pointer;
+    }
+    
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+      display: block;
+    }
+    
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+      color: white;
+      padding: 15px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+    
+    .gallery-title {
+      font-weight: 600;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+    }
+    
+    .gallery-date {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+    
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes popupIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .about-container,
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      
+      .content h1 {
+        font-size: 2.8rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      
+      nav ul {
+        position: fixed;
+        top: 0;
+        right: -300px;
+        width: 280px;
+        height: 100vh;
+        background: white;
+        flex-direction: column;
+        padding: 80px 30px;
+        transition: right 0.3s ease;
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+      }
+      
+      nav ul.show {
+        right: 0;
+      }
+      
+      .close-sidebar {
+        display: block;
+      }
+      
+      .content h1 {
+        font-size: 2.2rem;
+      }
+      
+      section {
+        padding: 60px 20px;
+      }
+      
+      .about-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .paket-list {
+        grid-template-columns: 1fr;
+      }
+      
+      .popup-buttons {
+        flex-direction: column;
+      }
+      
+      .map-box {
+        height: 400px;
+      }
+      
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .content h1 {
+        font-size: 1.8rem;
+      }
+      
+      section h2 {
+        font-size: 2rem;
+      }
+      
+      .about-stats {
+        grid-template-columns: 1fr;
+      }
+      
+      .fasilitas-box {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-admin {
+        padding: 20px;
+      }
+      
+      .admin-btn {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+    }
+    
+    /* ===== UTILITY CLASSES ===== */
+    .text-center { text-align: center; }
+    .mt-20 { margin-top: 20px; }
+    .mb-30 { margin-bottom: 30px; }
+    
+    /* ===== CUSTOM SCROLLBAR ===== */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 5px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="loader">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="menu-toggle" id="menuToggle">☰</div>
+    <div class="logo"><h3>GERBANG <span>LANGIT</span></h3></div>
+    <ul id="navbarMenu">
+      <div class="close-sidebar" id="closeSidebar">❮</div>
+      <li><a href="#about">Tentang</a></li>
+      <li><a href="#fasilitas">Fasilitas</a></li>
+      <li><a href="#paket">Paket</a></li>
+      <li><a href="#testimoni">Testimoni</a></li>
+      <li><a href="#maps">Lokasi</a></li>
+      <li><a href="#contact">Kontak</a></li>
+      <li><a href="login.html" class="admin-nav-link">
+        <i href="login.html"class="fas fa-user-cog"></i> Admin
+      </a></li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    <div class="content">
+      <h1>Nikmati Keindahan Dari Gerbang Langit</h1>
+      <p>Temukan dan pilih paket liburan terbaik anda</p>
+      <button class="btn-main" onclick="orderDefault()">Pesan Sekarang</button>
+    </div>
+  </header>
+
+  <!-- About -->
+  <section id="about" class="about-section">
+    <h2>Tentang Kami</h2>
+    <div class="about-container">
+      <div class="about-image">
+        <img src="poto/2.jpg" alt="Gerbang Langit" 
+             onerror="this.src='https://www.instagram.com/p/DJQ8r6qzf25/?img_index=1'">
+      </div>
+      <div class="about-content">
+        <h3>Gerbang Langit</h3>
+        <p>Gerbang Langit Travel menghadirkan pengalaman wisata alam yang tenang, sejuk, dan penuh kenangan. Kami menggabungkan keindahan pegunungan dengan fasilitas camping yang nyaman dan pelayanan profesional.</p>
+        <p>Mulai dari sunrise terbaik, area camp luas, api unggun malam, hingga akses wisata strategis — semua kami siapkan agar liburan Anda lebih berkesan.</p>
+        
+        <!-- Stats Counter -->
+        <div class="about-stats">
+          <div class="stat-item">
+            <div class="stat-number" data-count="500">0</div>
+            <div class="stat-label">Pengunjung</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-count="50">0</div>
+            <div class="stat-label">Trip Sukses</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-count="98">0</div>
+            <div class="stat-label">Kepuasan</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fasilitas -->
+  <section id="fasilitas">
+    <h2>Fasilitas Kami</h2>
+    <ul id="fasilitasList" class="fasilitas-box"></ul>
+  </section>
+
+  <!-- Paket -->
+  <section id="paket">
+    <h2>Paket Wisata</h2>
+    <p class="section-subtitle">Pilih paket terbaik untuk pengalaman liburan tak terlupakan</p>
+    <div id="paketList" class="paket-list">
+      <!-- Data akan diisi JavaScript -->
+    </div>
+  </section>
+
+  <!-- Testimoni -->
+  <section id="testimoni">
+    <h2>Testimoni</h2>
+    <p class="section-subtitle">Apa kata mereka tentang pengalaman di Gerbang Langit</p>
+    <div class="testimonial-container">
+      <div class="testi-slider">
+        <div class="testi-track" id="testiTrack"></div>
+      </div>
+    </div>
+    <div class="text-center mt-20">
+      <button class="btn-main" onclick="openGallery()">
+        <i class="fas fa-images"></i> Lihat Galeri Foto
+      </button>
+    </div>
+  </section>
+
+  <!-- Gallery Popup -->
+  <div id="galleryPopup" class="popup-wrapper">
+    <div class="popup-card" style="max-width:900px">
+      <div class="popup-header">
+        <h3>Galeri Foto Pengunjung</h3>
+        <p>Kumpulan momen indah di Gerbang Langit</p>
+      </div>
+      <div class="popup-body">
+        <div id="galleryGrid" class="gallery-grid"></div>
+        <div class="popup-buttons">
+          <button class="btn-close" onclick="closeGallery()">Tutup Galeri</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Maps -->
+<section id="maps">
+    <h2>Lokasi Kami</h2>
+    <p class="section-subtitle">Temukan kami di lokasi strategis dengan pemandangan terbaik</p>
+    <div class="map-container">
+        <div class="map-header">
+            <h3>Gerbang Langit Camping Ground</h3>
+            <p>FFJ8+5P Kebun Mbak Ani, Pengadangan, Kec. Pringgasela, Kabupaten Lombok Timur, Nusa Tenggara Barat</p>
+        </div>
+        <div class="map-box">
+            <!-- Google Maps embed dengan koordinat area tersebut -->
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.760973493759!2d116.46582377458912!3d-8.192028791955733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dcdbd44bb7f6c33%3A0x6898c5cfc8a1a4b1!2sPengadangan%2C%20Pringgasela%2C%20East%20Lombok%20Regency%2C%20West%20Nusa%20Tenggara!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid"
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                loading="lazy"
+                title="Lokasi Gerbang Langit" 
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+</section>
+
+  <!-- Footer -->
+  <footer id="contact" class="footer-premium">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>GERBANG LANGIT</h4>
+          <p>Camping ground alami di Desa Pengadangan, tempat terbaik menikmati langit, alam, dan ketenangan.</p>
+          <div class="footer-social">
+            <a href="https://instagram.com/" target="_blank" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://facebook.com/" target="_blank" aria-label="Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://tiktok.com/" target="_blank" aria-label="TikTok">
+              <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="https://wa.me/6287799130382" target="_blank" aria-label="WhatsApp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-col footer-links">
+          <h4>Menu Cepat</h4>
+          <ul>
+            <li><a href="#about"><i class="fas fa-chevron-right"></i> Tentang Kami</a></li>
+            <li><a href="#fasilitas"><i class="fas fa-chevron-right"></i> Fasilitas</a></li>
+            <li><a href="#paket"><i class="fas fa-chevron-right"></i> Paket Wisata</a></li>
+            <li><a href="#testimoni"><i class="fas fa-chevron-right"></i> Testimoni</a></li>
+            <li><a href="#maps"><i class="fas fa-chevron-right"></i> Lokasi</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col footer-contact">
+          <h4>Kontak Kami</h4>
+          <p><i class="fas fa-phone"></i> 0877-9913-0382</p>
+          <p><i class="fas fa-envelope"></i> info@gerbanglangit.com</p>
+          <p><i class="fas fa-map-marker-alt"></i> Desa Pengadangan, Lombok Timur, NTB</p>
+          <p><i class="fas fa-clock"></i> Buka Setiap Hari: 08:00 - 22:00</p>
+        </div>
+      </div>
+      
+      <div class="footer-admin">
+        <a href="login.html" class="admin-btn">
+          <i class="fas fa-user-cog"></i> Panel Admin
+        </a>
+      </div>
+    </div>
+    <div class="footer-copy">
+      © 2025 Gerbang Langit Pengadangan. All Rights Reserved.
+    </div>
+  </footer>
+
+  <!-- Booking Popup -->
+  <div id="popup-booking" class="popup-wrapper">
+    <div class="popup-card">
+      <div class="popup-header">
+        <h3>Form Booking Paket Wisata</h3>
+        <p>Isi data diri untuk melakukan reservasi</p>
+      </div>
+      <div class="popup-body">
+        <div class="form-group">
+          <label>Nama Lengkap</label>
+          <input id="nama" type="text" placeholder="Masukkan nama lengkap" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input id="email" type="email" placeholder="email@contoh.com" required>
+        </div>
+        <div class="form-group">
+          <label>Nomor WhatsApp</label>
+          <input id="whatsapp" type="tel" placeholder="628xxxxxxxxxx" required>
+        </div>
+        <div class="form-group">
+          <label>Tanggal</label>
+          <input id="tanggal" type="date" required>
+        </div>
+        <div class="form-group">
+          <label>Waktu</label>
+          <input id="waktu" type="time" value="08:00" required>
+        </div>
+        <div class="form-group">
+          <label>Jumlah Peserta</label>
+          <input id="jumlah" type="number" min="1" value="1" required>
+        </div>
+        
+        <div class="order-detail">
+          <strong>Detail Pesanan:</strong>
+          <p id="selectedPaketInfo">Pilih paket terlebih dahulu</p>
+          <p id="selectedHargaInfo" class="price-detail">-</p>
+        </div>
+        
+        <div class="popup-buttons">
+          <button class="btn-submit-booking btn-kirim-order">
+            <i class="fas fa-paper-plane"></i> Kirim Pesanan
+          </button>
+          <button class="btn-close" onclick="closePopup()">
+            <i class="fas fa-times"></i> Tutup
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // ===== GLOBAL DATA =====
+    let bookingsData = [];
+    let packagesData = [];
+    let testimonialsData = [];
+    let galleryData = [];
+    let facilitiesData = [];
+    
+    let selectedPaket = "Booking Manual";
+    let selectedHarga = 0;
+    let selectedPaketId = 0;
+    let isProcessing = false;
+
+    // ===== HELPER FUNCTIONS =====
+    const q = id => document.getElementById(id);
+    const escapeHtml = text => {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    };
+
+    // ===== INITIALIZATION =====
+    document.addEventListener('DOMContentLoaded', function() {
+      setupMobileMenu();
+      loadDataFromLocalStorage();
+      setupEventListeners();
+      setupBookingForm();
+      
+      // Load all data
+      loadAllData();
+      
+      // Set minimum date to today
+      const today = new Date().toISOString().split('T')[0];
+      q('tanggal').min = today;
+      q('tanggal').valueAsDate = new Date(new Date().setDate(new Date().getDate() + 1));
+    });
+
+    function setupMobileMenu() {
+      q('menuToggle').onclick = () => q('navbarMenu').classList.toggle("show");
+      q('closeSidebar').onclick = () => q('navbarMenu').classList.remove("show");
+      
+      document.addEventListener('click', (e) => {
+        if (!q('navbarMenu').contains(e.target) && !q('menuToggle').contains(e.target)) {
+          q('navbarMenu').classList.remove("show");
+        }
+      });
+    }
+
+    function loadDataFromLocalStorage() {
+      // Load data from localStorage (sama dengan admin panel)
+      bookingsData = JSON.parse(localStorage.getItem('gerbang_langit_bookings') || '[]');
+      packagesData = JSON.parse(localStorage.getItem('gerbang_langit_packages') || '[]');
+      facilitiesData = JSON.parse(localStorage.getItem('gerbang_langit_facilities') || '[]');
+      testimonialsData = JSON.parse(localStorage.getItem('gerbang_langit_testimonials') || '[]');
+      galleryData = JSON.parse(localStorage.getItem('gerbang_langit_gallery') || '[]');
+    }
+
+    function loadAllData() {
+      loadPaketData();
+      loadFasilitasData();
+      loadTestimoniData();
+      loadGalleryData();
+      animateStats();
+      setupPreloader();
+    }
+
+    function setupEventListeners() {
+      window.addEventListener('scroll', function() {
+        const nav = document.querySelector('nav');
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+      });
+
+      q('jumlah').addEventListener('input', updateTotalPrice);
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closePopup();
+          closeGallery();
+        }
+      });
+
+      [q('popup-booking'), q('galleryPopup')].forEach(popup => {
+        popup?.addEventListener('click', function(e) {
+          if (e.target === this) {
+            this.style.display = "none";
+          }
+        });
+      });
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+            
+            // Close mobile menu if open
+            q('navbarMenu').classList.remove("show");
+          }
+        });
+      });
+    }
+
+    function setupBookingForm() {
+      document.querySelector('.btn-kirim-order').addEventListener('click', submitBooking);
+    }
+
+    function setupPreloader() {
+      window.addEventListener('load', function() {
+        setTimeout(() => {
+          q('preloader').style.display = 'none';
+        }, 1000);
+      });
+    }
+
+    // ===== DATA LOADING FUNCTIONS =====
+    function loadPaketData() {
+      if (packagesData.length === 0) {
+        // Default package data if empty
+        packagesData = [
+          {
+            id: 1,
+            nama: 'Trip Bromo Sunrise',
+            harga: 550000,
+            deskripsi: 'Jeep Offroad • Guide Lokal • Makan Pagi',
+            gambar: 'https://www.instagram.com/p/DJQ8r6qzf25/?img_index=1',
+            badge: 'BESTSELLER',
+            status: 'active'
+          },
+          {
+            id: 2,
+            nama: 'Labuan Bajo Live On Board',
+            harga: 3250000,
+            deskripsi: 'Kapal Phinisi • Makan 3x • Snorkeling Equipment',
+            gambar: 'https://www.instagram.com/p/DJQ8r6qzf25/?img_index=2',
+            badge: 'POPULAR',
+            status: 'active'
+          },
+          {
+            id: 3,
+            nama: 'Camping Gerbang Langit',
+            harga: 250000,
+            deskripsi: 'Tenda Premium • Api Unggun • Breakfast',
+            gambar: 'https://www.instagram.com/p/DJQ8r6qzf25/?img_index=3',
+            badge: 'NEW',
+            status: 'active'
+          }
+        ];
+        localStorage.setItem('gerbang_langit_packages', JSON.stringify(packagesData));
+      }
+      
+      renderPaketList(packagesData);
+    }
+
+    function renderPaketList(paketData) {
+      const paketList = q('paketList');
+      const activePackages = paketData.filter(p => p.status === 'active');
+      
+      if (activePackages.length === 0) {
+        paketList.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+            <p style="color: #64748b; font-size: 1.1rem;">Belum ada paket yang tersedia. Silakan hubungi admin untuk informasi lebih lanjut.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      paketList.innerHTML = activePackages.map(p => `
+        <div class="paket-card">
+          ${p.badge ? `<div class="paket-card-badge">${p.badge}</div>` : ''}
+          <img src="${p.gambar}" 
+               alt="${p.nama}" 
+               loading="lazy"
+               onerror="handleImageError(this, '${p.nama}')">
+          <div class="info">
+            <h3>${escapeHtml(p.nama)}</h3>
+            <p>${p.deskripsi || 'Paket wisata menarik dengan fasilitas lengkap.'}</p>
+            <div class="price">Rp ${p.harga.toLocaleString('id-ID')}</div>
+            <button onclick="orderPaket('${escapeHtml(p.nama)}', ${p.harga}, ${p.id})">
+              <i class="fas fa-calendar-check"></i> Booking Sekarang
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function handleImageError(img, altText) {
+      console.log(`Gambar gagal dimuat: ${altText}`);
+      // Fallback ke foto asli Gerbang Langit dari Instagram
+      img.src = 'https://www.instagram.com/p/DJQ8r6qzf25/?img_index=1';
+      img.alt = altText + ' - Gerbang Langit';
+    }
+
+    function loadFasilitasData() {
+      if (facilitiesData.length === 0) {
+        // Default facilities data
+        facilitiesData = [
+          { 
+            nama: 'Gazebo Panorama', 
+            kategori: 'akomodasi', 
+            deskripsi: 'Gazebo dengan view 360° pemandangan pegunungan',
+            status: 'active'
+          },
+          { 
+            nama: 'Warung Makan', 
+            kategori: 'makanan', 
+            deskripsi: 'Warung makanan tradisional dengan menu khas Lombok',
+            status: 'active'
+          },
+          { 
+            nama: 'Area Camping', 
+            kategori: 'akomodasi', 
+            deskripsi: 'Spot camping luas dengan fasilitas lengkap',
+            status: 'active'
+          },
+          { 
+            nama: 'Toilet Umum', 
+            kategori: 'umum', 
+            deskripsi: 'Toilet bersih dengan air mengalir di 3 lokasi',
+            status: 'active'
+          },
+          { 
+            nama: 'Spot Foto', 
+            kategori: 'aktivitas', 
+            deskripsi: 'Berbagai spot foto terbaik dengan background alam',
+            status: 'active'
+          },
+          { 
+            nama: 'Api Unggun', 
+            kategori: 'aktivitas', 
+            deskripsi: 'Area api unggun untuk kehangatan di malam hari',
+            status: 'active'
+          }
+        ];
+        localStorage.setItem('gerbang_langit_facilities', JSON.stringify(facilitiesData));
+      }
+      
+      renderFasilitasList(facilitiesData);
+    }
+
+    function renderFasilitasList(fasilitasData) {
+      const fasilitasList = q('fasilitasList');
+      
+      // Only show active facilities
+      const activeFacilities = fasilitasData.filter(f => !f.status || f.status === 'active');
+      
+      if (activeFacilities.length === 0) {
+        fasilitasList.innerHTML = `
+          <li style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+            <p style="color: #64748b;">Belum ada data fasilitas yang tersedia.</p>
+          </li>
+        `;
+        return;
+      }
+      
+      fasilitasList.innerHTML = activeFacilities.map(f => `
+        <li class="fasilitas-item">
+          <div class="fasilitas-icon">
+            ${getFacilityIcon(f.kategori)}
+          </div>
+          <h4>${f.nama}</h4>
+          <p>${f.deskripsi || f.keterangan || 'Fasilitas lengkap dan nyaman.'}</p>
+        </li>
+      `).join('');
+    }
+
+    function getFacilityIcon(category) {
+      const icons = {
+        'akomodasi': '🏨',
+        'makanan': '🍽️',
+        'aktivitas': '🚵‍♀️',
+        'keamanan': '👮‍♂️',
+        'umum': '🏕️'
+      };
+      return icons[category] || '🏕️';
+    }
+
+    function loadTestimoniData() {
+      if (testimonialsData.length === 0) {
+        // Default testimonial data
+        testimonialsData = [
+          { 
+            nama: 'Rina Setiawan', 
+            testimoni: 'Pengalaman camping terbaik! Pemandangan sunrise luar biasa. Pelayanan staff sangat ramah.', 
+            rating: 5,
+            status: 'active'
+          },
+          { 
+            nama: 'Budi Santoso', 
+            testimoni: 'Pelayanan ramah, fasilitas lengkap. Worth it banget! Akan kembali lagi bersama keluarga.', 
+            rating: 5,
+            status: 'active'
+          },
+          { 
+            nama: 'Sari Dewi', 
+            testimoni: 'Perfect untuk healing. Udara sejuk, alamnya masih asri. Sangat recommended!', 
+            rating: 4,
+            status: 'active'
+          },
+          { 
+            nama: 'Ahmad Fauzi', 
+            testimoni: 'Trip Bromo dengan guide lokal sangat membantu. Recommended untuk adventure seekers!', 
+            rating: 5,
+            status: 'active'
+          }
+        ];
+        localStorage.setItem('gerbang_langit_testimonials', JSON.stringify(testimonialsData));
+      }
+      
+      renderTestimoniList(testimonialsData);
+    }
+
+    function renderTestimoniList(testimoniData) {
+      const testiTrack = q('testiTrack');
+      
+      // Only show active testimonials
+      const activeTestimonials = testimoniData.filter(t => t.status === 'active');
+      
+      if (activeTestimonials.length === 0) {
+        testiTrack.innerHTML = `
+          <div style="text-align: center; padding: 40px; grid-column: 1 / -1;">
+            <p style="color: #64748b;">Belum ada testimoni yang tersedia.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      // Duplicate testimonials for seamless scroll
+      const allTestimonials = [...activeTestimonials, ...activeTestimonials];
+      
+      testiTrack.innerHTML = allTestimonials.map(t => `
+        <div class="testi-card">
+          <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 1.5rem; font-weight: bold;">
+            ${getInitials(t.nama)}
+          </div>
+          <div class="testi-content">
+            <h4>${t.nama}</h4>
+            <p>"${t.testimoni || 'Pengalaman yang menyenangkan.'}"</p>
+            <div class="testi-rating">
+              ${renderStars(t.rating || 5)}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function getInitials(name) {
+      return name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+    }
+
+    function renderStars(rating) {
+      let stars = '';
+      const fullStars = Math.floor(rating);
+      const hasHalfStar = rating % 1 !== 0;
+      
+      for (let i = 1; i <= 5; i++) {
+        if (i <= fullStars) {
+          stars += '<i class="fas fa-star"></i>';
+        } else if (i === fullStars + 1 && hasHalfStar) {
+          stars += '<i class="fas fa-star-half-alt"></i>';
+        } else {
+          stars += '<i class="far fa-star"></i>';
+        }
+      }
+      return stars;
+    }
+
+    function loadGalleryData() {
+      if (galleryData.length === 0) {
+        // Default gallery data - menggunakan foto asli dari Instagram Gerbang Langit
+        galleryData = [
+          {
+            id: 1,
+            gambar: 'https://www.instagram.com/p/DJQ8r6qzf25/?img_index=1',
+            judul: 'Pemandangan Sunrise',
+            deskripsi: 'Matahari terbit dari balik pegunungan',
+            tanggal: '2024-01-15',
+            status: 'active',
+            album: 'pemandangan'
+          },
+          {
+            id: 2,
+            gambar: 'https://www.instagram.com/p/DJQ8r6qzf25/?img_index=2',
+            judul: 'Area Camping',
+            deskripsi: 'Tenda-tenda pengunjung di malam hari',
+            tanggal: '2024-01-14',
+            status: 'active',
+            album: 'aktivitas'
+          },
+          {
+            id: 3,
+            gambar: 'https://www.instagram.com/p/DJQ8r6qzf25/?img_index=3',
+            judul: 'Gazebo Panorama',
+            deskripsi: 'Gazebo dengan view 360 derajat',
+            tanggal: '2024-01-13',
+            status: 'active',
+            album: 'fasilitas'
+          },
+          {
+            id: 4,
+            gambar: 'https://www.instagram.com/p/DJQ8r6qzf25/?img_index=4',
+            judul: 'Api Unggun',
+            deskripsi: 'Kehangatan api unggun di malam hari',
+            tanggal: '2024-01-12',
+            status: 'active',
+            album: 'aktivitas'
+          },
+          {
+            id: 5,
+            gambar: 'https://www.instagram.com/p/DJQ8r6qzf25/?img_index=5',
+            judul: 'Spot Foto',
+            deskripsi: 'Spot foto favorit pengunjung',
+            tanggal: '2024-01-11',
+            status: 'active',
+            album: 'aktivitas'
+          },
+          {
+            id: 6,
+            gambar: 'https://www.instagram.com/p/DJQ8r6qzf25/?img_index=6',
+            judul: 'Pemandangan Malam',
+            deskripsi: 'Langit malam yang dipenuhi bintang',
+            tanggal: '2024-01-10',
+            status: 'active',
+            album: 'pemandangan'
+          }
+        ];
+        localStorage.setItem('gerbang_langit_gallery', JSON.stringify(galleryData));
+      }
+    }
+
+    function animateStats() {
+      const stats = document.querySelectorAll('.stat-number');
+      stats.forEach(stat => {
+        const target = parseInt(stat.getAttribute('data-count'));
+        let current = 0;
+        const increment = target / 100;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            stat.textContent = target + (stat.getAttribute('data-count') === '98' ? '%' : '+');
+            clearInterval(timer);
+          } else {
+            stat.textContent = Math.floor(current) + (stat.getAttribute('data-count') === '98' ? '%' : '+');
+          }
+        }, 20);
+      });
+    }
+
+    // ===== BOOKING FUNCTIONS =====
+    function orderPaket(paket, harga, paketId) {
+      selectedPaket = paket;
+      selectedHarga = harga;
+      selectedPaketId = paketId;
+      
+      q('selectedPaketInfo').textContent = `Paket: ${paket}`;
+      q('selectedHargaInfo').innerHTML = `<strong>Harga:</strong> Rp ${harga.toLocaleString('id-ID')} per orang`;
+      
+      openPopup();
+    }
+
+    function orderDefault() {
+      selectedPaket = "Booking Manual - Konsultasi Paket";
+      selectedHarga = 0;
+      selectedPaketId = 0;
+      
+      q('selectedPaketInfo').textContent = "Konsultasi Paket Custom";
+      q('selectedHargaInfo').innerHTML = `<strong>Harga:</strong> Menyesuaikan kebutuhan`;
+      
+      openPopup();
+    }
+
+    function openPopup() {
+      q('popup-booking').style.display = "flex";
+      setTimeout(() => q('nama').focus(), 100);
+      updateTotalPrice();
+    }
+
+    function closePopup() {
+      q('popup-booking').style.display = "none";
+      // Reset form
+      ['nama', 'email', 'whatsapp'].forEach(id => q(id).value = '');
+      q('jumlah').value = 1;
+    }
+
+    function updateTotalPrice() {
+      if (selectedPaketId === 0) return;
+      const jumlah = parseInt(q('jumlah').value) || 1;
+      const total = selectedHarga * jumlah;
+      q('selectedHargaInfo').innerHTML = `
+        <strong>Harga per orang:</strong> Rp ${selectedHarga.toLocaleString('id-ID')}<br>
+        <strong>Jumlah peserta:</strong> ${jumlah} orang<br>
+        <strong>Total harga:</strong> Rp ${total.toLocaleString('id-ID')}
+      `;
+    }
+
+    async function submitBooking() {
+      if (isProcessing) return;
+      
+      const nama = q('nama').value.trim();
+      const email = q('email').value.trim();
+      const whatsapp = q('whatsapp').value.trim();
+      const tanggal = q('tanggal').value;
+      const waktu = q('waktu').value;
+      const jumlah = parseInt(q('jumlah').value) || 1;
+      
+      // Validation
+      if (!validateBookingForm(nama, email, whatsapp, tanggal, waktu)) return;
+      
+      isProcessing = true;
+      const button = document.querySelector('.btn-kirim-order');
+      const originalText = button.innerHTML;
+      button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+      button.disabled = true;
+      
+      try {
+        // Save booking
+        const bookingId = await saveBooking({
+          nama, email, whatsapp, tanggal, waktu, jumlah,
+          paket: selectedPaket,
+          harga: selectedHarga,
+          paketId: selectedPaketId
+        });
+        
+        // Send WhatsApp notification
+        sendWhatsAppBooking(bookingId, {
+          nama, email, whatsapp, tanggal, waktu, jumlah,
+          paket: selectedPaket,
+          total: selectedPaketId > 0 ? selectedHarga * jumlah : 0
+        });
+        
+        showSuccessMessage(bookingId);
+        closePopup();
+        
+      } catch (error) {
+        console.error('Booking error:', error);
+        alert('❌ Gagal mengirim booking. Silakan coba lagi.');
+      } finally {
+        resetBookingButton(button, originalText);
+        isProcessing = false;
+      }
+    }
+
+    function validateBookingForm(nama, email, whatsapp, tanggal, waktu) {
+      if (!nama || !email || !whatsapp || !tanggal || !waktu) {
+        alert("⚠️ Harap lengkapi semua data yang diperlukan");
+        return false;
+      }
+      
+      if (!email.includes('@') || !email.includes('.')) {
+        alert("⚠️ Format email tidak valid");
+        q('email').focus();
+        return false;
+      }
+      
+      if (whatsapp.length < 10) {
+        alert("⚠️ Nomor WhatsApp tidak valid");
+        q('whatsapp').focus();
+        return false;
+      }
+      
+      return true;
+    }
+
+    async function saveBooking(bookingData) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const bookingId = 'GL-' + Date.now();
+          const bookingRecord = {
+            id: bookingId,
+            nama: bookingData.nama,
+            email: bookingData.email,
+            whatsapp: bookingData.whatsapp,
+            paket: bookingData.paket,
+            harga: bookingData.harga,
+            tanggal: bookingData.tanggal,
+            waktu: bookingData.waktu,
+            jumlah: bookingData.jumlah,
+            status: 'pending',
+            total: bookingData.paketId > 0 ? bookingData.harga * bookingData.jumlah : 0,
+            created_at: new Date().toISOString()
+          };
+          
+          // Save to localStorage
+          bookingsData.push(bookingRecord);
+          localStorage.setItem('gerbang_langit_bookings', JSON.stringify(bookingsData));
+          
+          console.log('Booking saved:', bookingRecord);
+          resolve(bookingId);
+        }, 500);
+      });
+    }
+
+    function sendWhatsAppBooking(bookingId, data) {
+      const message = `*📋 BOOKING GERBANG LANGIT*%0A%0A` +
+        `🆔 *ID Booking:* ${bookingId}%0A` +
+        `👤 *Nama:* ${data.nama}%0A` +
+        `📧 *Email:* ${data.email}%0A` +
+        `📱 *WhatsApp:* ${data.whatsapp}%0A` +
+        `📦 *Paket:* ${data.paket}%0A` +
+        `👥 *Jumlah:* ${data.jumlah} orang%0A` +
+        `💰 *Total:* ${data.total > 0 ? 'Rp ' + data.total.toLocaleString('id-ID') : 'Konsultasi'}%0A` +
+        `📅 *Tanggal:* ${data.tanggal}%0A` +
+        `⏰ *Waktu:* ${data.waktu}%0A` +
+        `📝 *Sumber:* Website Gerbang Langit`;
+      
+      window.open(`https://wa.me/6287799130382?text=${message}`, '_blank');
+    }
+
+    function showSuccessMessage(bookingId) {
+      alert(`✅ Booking berhasil dikirim!\n\nID Booking: ${bookingId}\n\nAdmin akan menghubungi Anda via WhatsApp untuk konfirmasi lebih lanjut.`);
+    }
+
+    function resetBookingButton(button, originalText) {
+      button.innerHTML = originalText;
+      button.disabled = false;
+    }
+
+    // ===== GALLERY FUNCTIONS =====
+    function openGallery() {
+      // Load gallery data from localStorage
+      const galleryFromStorage = JSON.parse(localStorage.getItem('gerbang_langit_gallery') || '[]');
+      const activeGalleryImages = galleryFromStorage.filter(img => img.status === 'active');
+      
+      if (activeGalleryImages.length === 0) {
+        // Default images if no gallery data
+        const defaultImages = [
+          {
+            gambar: 'https://www.instagram.com/p/DJQ8r6qzf25/?img_index=1',
+            judul: 'Sunset View',
+            tanggal: '2024-01-15'
+          },
+          {
+            gambar: 'https://www.instagram.com/p/DJQ8r6qzf25/?img_index=2',
+            judul: 'Camping Area',
+            tanggal: '2024-01-14'
+          },
+          {
+            gambar: 'https://www.instagram.com/p/DJQ8r6qzf25/?img_index=3',
+            judul: 'Gazebo Panorama',
+            tanggal: '2024-01-13'
+          },
+          {
+            gambar: 'https://www.instagram.com/p/DJQ8r6qzf25/?img_index=4',
+            judul: 'Api Unggun',
+            tanggal: '2024-01-12'
+          },
+          {
+            gambar: 'https://www.instagram.com/p/DJQ8r6qzf25/?img_index=5',
+            judul: 'Spot Foto',
+            tanggal: '2024-01-11'
+          },
+          {
+            gambar: 'https://www.instagram.com/p/DJQ8r6qzf25/?img_index=6',
+            judul: 'Night View',
+            tanggal: '2024-01-10'
+          }
+        ];
+        
+        q('galleryGrid').innerHTML = defaultImages.map(img => `
+          <div class="gallery-item" onclick="viewImage('${img.gambar}')">
+            <img src="${img.gambar}" 
+                 alt="${img.judul}" 
+                 onerror="this.src='https://www.instagram.com/p/DJQ8r6qzf25/?img_index=1'">
+            <div class="gallery-overlay">
+              <div class="gallery-title">${img.judul}</div>
+              <div class="gallery-date">${formatDate(img.tanggal)}</div>
+            </div>
+          </div>
+        `).join('');
+      } else {
+        q('galleryGrid').innerHTML = activeGalleryImages.map(img => `
+          <div class="gallery-item" onclick="viewImage('${img.gambar}')">
+            <img src="${img.gambar}" 
+                 alt="${img.judul || 'Galeri Gerbang Langit'}" 
+                 onerror="this.src='https://www.instagram.com/p/DJQ8r6qzf25/?img_index=1'">
+            <div class="gallery-overlay">
+              <div class="gallery-title">${img.judul || 'Foto Gerbang Langit'}</div>
+              <div class="gallery-date">${formatDate(img.tanggal)}</div>
+            </div>
+          </div>
+        `).join('');
+      }
+      
+      q('galleryPopup').style.display = "flex";
+    }
+
+    function formatDate(dateString) {
+      if (!dateString) return '';
+      const date = new Date(dateString);
+      return date.toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+      });
+    }
+
+    function viewImage(imageUrl) {
+      window.open(imageUrl, '_blank');
+    }
+
+    function closeGallery() {
+      q('galleryPopup').style.display = "none";
+    }
+
+    // ===== EXPORT FUNCTIONS TO GLOBAL SCOPE =====
+    window.orderPaket = orderPaket;
+    window.orderDefault = orderDefault;
+    window.openGallery = openGallery;
+    window.closeGallery = closeGallery;
+    window.closePopup = closePopup;
+    window.viewImage = viewImage;
+
+    // ===== PERIODIC DATA REFRESH =====
+    setInterval(() => {
+      loadDataFromLocalStorage();
+      renderPaketList(packagesData);
+      renderFasilitasList(facilitiesData);
+      renderTestimoniList(testimonialsData);
+    }, 30000); // Refresh every 30 seconds
+    
+    // ===== IMAGE LOADING FALLBACK =====
+    document.addEventListener('DOMContentLoaded', function() {
+      // Handle image errors globally
+      document.addEventListener('error', function(e) {
+        if (e.target.tagName === 'IMG') {
+          console.log('Image failed to load:', e.target.src);
+          // Fallback to Instagram photo
+          e.target.src = 'https://www.instagram.com/p/DJQ8r6qzf25/?img_index=1';
+          e.target.alt = 'Gerbang Langit - Foto Pengunjung';
+        }
+      }, true);
+    });
+  </script>
+</body>
+</html>

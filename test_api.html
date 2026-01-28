@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test API Connection</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .success { color: green; }
+        .error { color: red; }
+        button { margin: 5px; padding: 10px; }
+        pre { background: #f5f5f5; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Test API Connection</h1>
+    
+    <button onclick="testAPI('packages')">Test Packages API</button>
+    <button onclick="testAPI('bookings')">Test Bookings API</button>
+    <button onclick="testAPI('facilities')">Test Facilities API</button>
+    <button onclick="testAPI('testimonials')">Test Testimonials API</button>
+    <button onclick="testAPI('gallery')">Test Gallery API</button>
+    <button onclick="testAPI('dashboard')">Test Dashboard API</button>
+    
+    <div id="result"></div>
+    
+    <script>
+        async function testAPI(endpoint) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Loading...';
+            
+            try {
+                const response = await fetch(`api/${endpoint}.php`);
+                const data = await response.json();
+                
+                resultDiv.innerHTML = `
+                    <h3 class="success">✅ ${endpoint.toUpperCase()} API Connected!</h3>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <h3 class="error">❌ ${endpoint.toUpperCase()} API Error</h3>
+                    <p>${error.message}</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
